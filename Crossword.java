@@ -20,7 +20,23 @@ public class Crossword
    
    public Crossword( boolean[][] blackSquares )
       {
+          int num = 0;
           
+          puzzle = new Square[blackSquares.length][blackSquares[0].length];
+for(int r=0; r< blackSquares.length;r++){
+     for(int c=0; c<blackSquares[0].length;c++){
+            if(toBeLabeled(r,c,blackSquares)){
+                  num=num+1;
+                  Square s = new Square(blackSquares[r][c],num);
+                  puzzle[r][c]=s;
+            }
+            else{
+                  Square s = new Square(blackSquares[r][c],0);
+                  puzzle[r][c]=s;
+            }
+            
+     }
+}
           
       // to be completed in Part (b)
       
@@ -30,10 +46,27 @@ public class Crossword
        
    private boolean toBeLabeled( int r, int c, boolean[][] blackSquares )
       {
+
           
+          if(blackSquares[r][c]){
+     return false;
+}
+else {
+     if(r==0||c==0){
+          return true;
+     }
+     else {
+          if(blackSquares[r-1][c]||blackSquares[r][c-1]){
+               return true;
+          }
+          else {
+               return false;
+          }
+     }
+}
         
       
-      return false;    
+   
       } // end method toBeLabeled
       
    public String toString()
